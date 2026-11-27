@@ -1,3 +1,4 @@
+import 'backup.dart';
 import 'models.dart';
 import 'repository.dart';
 
@@ -134,5 +135,39 @@ class MemoryRepository implements FinakuRepository {
   @override
   Future<void> deleteBudget(int id) async {
     _budgets.removeWhere((b) => b.id == id);
+  }
+
+  @override
+  Future<BackupData> snapshot() async => BackupData(
+    wallets: await wallets(includeArchived: true),
+    categories: await categories(),
+    budgets: await budgets(),
+    transactions: await transactions(),
+  );
+
+  @override
+  Future<void> restoreSnapshot(BackupData data) async {
+    _wallets
+      ..clear()
+      ..addAll(data.wallets);
+    _categories
+      ..clear()
+      ..addAll(data.categories);
+    _budgets
+      ..clear()
+      ..addAll(data.budgets);
+    _transactions
+      ..clear()
+      ..addAll(data.transactions);
+    var maxId = 0;
+    for (final id in [
+      ...data.wallets.map((e) => e.id),
+      ...data.categories.map((e) => e.id),
+      ...data.budgets.map((e) => e.id),
+      ...data.transactions.map((e) => e.id),
+    ]) {
+      if (id > maxId) maxId = id;
+    }
+    _nextId = maxId + 1;
   }
 }

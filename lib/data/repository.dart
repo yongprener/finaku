@@ -1,3 +1,4 @@
+import 'backup.dart';
 import 'models.dart';
 
 /// Kontrak lapisan data Finaku.
@@ -42,6 +43,13 @@ abstract interface class FinakuRepository {
   Future<void> setBudget({required int categoryId, required int monthlyLimit});
 
   Future<void> deleteBudget(int id);
+
+  /// Mengambil potret seluruh data untuk cadangan.
+  Future<BackupData> snapshot();
+
+  /// Mengganti seluruh data dengan isi cadangan. Dipakai pemulihan;
+  /// layar wajib meminta kepastian pengguna lebih dulu.
+  Future<void> restoreSnapshot(BackupData data);
 }
 
 /// Kategori bawaan dari docs/konsep.md.

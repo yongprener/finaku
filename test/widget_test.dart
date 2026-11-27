@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
+import 'package:finaku/data/backup.dart';
+import 'package:finaku/data/models.dart';
 import 'package:finaku/main.dart';
 
 void main() {
@@ -49,6 +51,7 @@ void main() {
   });
 
   budgetTests();
+  reportTests();
 }
 
 void budgetTests() {
@@ -87,5 +90,75 @@ void budgetTests() {
       findsOneWidget,
     );
     expect(find.text('25%'), findsOneWidget);
+  });
+}
+
+void reportTests() {
+  testWidgets('Laporan menampilkan ringkasan dan ekspor CSV', (tester) async {
+    await tester.pumpWidget(FinakuApp.forTesting());
+    await tester.pumpAndSettle();
+
+    await tester.tap(find.text('Catat keluar'));
+    await tester.pumpAndSettle();
+    await tester.enterText(find.byType(TextField).first, '250000');
+    await tester.tap(find.text('Simpan transaksi'));
+    await tester.pumpAndSettle();
+
+    await tester.tap(find.text('Laporan'));
+    await tester.pumpAndSettle();
+    expect(find.text('Pengeluaran per kategori, bulan ini'), findsOneWidget);
+    expect(find.text('Rp 250.000 · 100%'), findsOneWidget);
+    expect(find.text('Enam bulan terakhir'), findsOneWidget);
+
+    await tester.scrollUntilVisible(find.text('Ekspor CSV'), 200);
+    await tester.tap(find.text('Ekspor CSV'));
+    await tester.pumpAndSettle();
+    expect(find.textContaining('tanggal;jenis;dompet'), findsOneWidget);
+    expect(find.textContaining('pengeluaran'), findsWidgets);
+  });
+
+  testWidgets('Pulihkan cadangan lewat tempel JSON mengganti data', (
+    tester,
+  ) async {
+    await tester.pumpWidget(FinakuApp.forTesting());
+    await tester.pumpAndSettle();
+
+    final backup = BackupData(
+      wallets: const [
+        Wallet(
+          id: 1,
+          name: 'Tunai',
+          kind: WalletKind.cash,
+          openingBalance: 500000,
+          archived: false,
+        ),
+      ],
+      categories: const [
+        Category(id: 1, name: 'Gaji', kind: TransactionKind.income),
+      ],
+      budgets: const [],
+      transactions: const [],
+    );
+
+    await tester.tap(find.text('Laporan'));
+    await tester.pumpAndSettle();
+    await tester.scrollUntilVisible(find.text('Pulihkan cadangan'), 200);
+    await tester.tap(find.text('Pulihkan cadangan'));
+    await tester.pumpAndSettle();
+
+    await tester.enterText(find.byType(TextField).first, backup.encode());
+    await tester.tap(find.text('Periksa isi cadangan'));
+    await tester.pumpAndSettle();
+    expect(find.textContaining('Isi cadangan sah: 1 dompet'), findsOneWidget);
+
+    await tester.tap(find.text('Pulihkan dan ganti semua data'));
+    await tester.pumpAndSettle();
+    expect(find.text('Ganti semua data?'), findsOneWidget);
+    await tester.tap(find.text('Ya, pulihkan'));
+    await tester.pumpAndSettle();
+
+    await tester.tap(find.text('Dasbor'));
+    await tester.pumpAndSettle();
+    expect(find.text('Rp 500.000'), findsWidgets);
   });
 }

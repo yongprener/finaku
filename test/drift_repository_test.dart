@@ -6,6 +6,7 @@ import 'package:finaku/data/drift_repository.dart';
 import 'package:finaku/data/models.dart';
 
 void main() {
+  driftRestoreTest();
   test(
     'DriftRepository: isi awal, transaksi, dan anggaran tersimpan',
     () async {
@@ -36,6 +37,40 @@ void main() {
       final budgets = await repo.budgets();
       expect(budgets.single.monthlyLimit, 1200000);
 
+      await db.close();
+    },
+  );
+}
+
+void driftRestoreTest() {
+  test(
+    'DriftRepository: potret lalu pulihkan mengganti seluruh data',
+    () async {
+      final db = AppDatabase.forTesting(NativeDatabase.memory());
+      final repo = DriftRepository(db);
+      await repo.seedIfEmpty();
+      final wallet = (await repo.wallets()).single;
+      await repo.addTransaction(
+        kind: TransactionKind.income,
+        amount: 750000,
+        walletId: wallet.id,
+        note: 'Gaji',
+        date: DateTime(2026, 11, 1),
+      );
+      final snap = await repo.snapshot();
+      await repo.addTransaction(
+        kind: TransactionKind.expense,
+        amount: 999999,
+        walletId: wallet.id,
+        note: 'Pengeluaran sesudah cadangan',
+        date: DateTime(2026, 11, 2),
+      );
+      expect((await repo.transactions()).length, 2);
+
+      await repo.restoreSnapshot(snap);
+      final txs = await repo.transactions();
+      expect(txs.length, 1);
+      expect(txs.single.note, 'Gaji');
       await db.close();
     },
   );

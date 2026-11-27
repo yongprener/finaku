@@ -1,5 +1,6 @@
 import 'package:flutter/foundation.dart' hide Category;
 
+import '../data/backup.dart';
 import '../data/models.dart';
 import '../data/repository.dart';
 import '../domain/balance.dart' as calc;
@@ -109,6 +110,13 @@ class FinakuStore extends ChangeNotifier {
 
   Future<void> deleteBudget(int id) async {
     await _repo.deleteBudget(id);
+    await load();
+  }
+
+  Future<BackupData> snapshot() => _repo.snapshot();
+
+  Future<void> restoreSnapshot(BackupData data) async {
+    await _repo.restoreSnapshot(data);
     await load();
   }
 
