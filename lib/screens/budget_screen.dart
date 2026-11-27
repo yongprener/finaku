@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 
+import '../store/finaku_store.dart';
 import '../theme/finaku_theme.dart';
 
 /// Anggaran bulanan per kategori. Keadaan kosong pada tahap kerangka.
 class BudgetScreen extends StatelessWidget {
-  const BudgetScreen({super.key});
+  const BudgetScreen({super.key, required this.store});
+
+  final FinakuStore store;
 
   @override
   Widget build(BuildContext context) {

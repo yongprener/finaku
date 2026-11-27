@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../store/finaku_store.dart';
 import '../theme/finaku_theme.dart';
 
 /// Laporan sederhana.
@@ -8,7 +9,9 @@ import '../theme/finaku_theme.dart';
 /// cukup, grafik tidak ditampilkan dan alasannya dijelaskan, bukan
 /// menampilkan grafik kosong yang membingungkan.
 class ReportScreen extends StatelessWidget {
-  const ReportScreen({super.key});
+  const ReportScreen({super.key, required this.store});
+
+  final FinakuStore store;
 
   @override
   Widget build(BuildContext context) {

@@ -1,19 +1,33 @@
 import 'package:flutter/material.dart';
 
 import 'app_shell.dart';
+import 'data/database.dart';
+import 'data/drift_repository.dart';
+import 'data/memory_repository.dart';
+import 'store/finaku_store.dart';
 import 'theme/finaku_theme.dart';
 
 /// Titik masuk Finaku.
 ///
-/// Tahap saat ini adalah kerangka: tema resmi, navigasi utama, dan
-/// keadaan kosong tiap layar. Lapisan data (basis data lokal SQLite)
-/// dibangun pada tahap berikutnya sesuai docs/konsep.md.
+/// Aplikasi memakai basis data lokal SQLite lewat Drift. Store dibuat
+/// sekali di sini dan dibagikan ke semua layar.
 void main() {
-  runApp(const FinakuApp());
+  final store = FinakuStore(DriftRepository(AppDatabase()));
+  store.load();
+  runApp(FinakuApp(store: store));
 }
 
 class FinakuApp extends StatelessWidget {
-  const FinakuApp({super.key});
+  const FinakuApp({super.key, required this.store});
+
+  final FinakuStore store;
+
+  /// Untuk pengujian: store di memori dengan data awal bawaan.
+  factory FinakuApp.forTesting() {
+    final store = FinakuStore(MemoryRepository());
+    store.load();
+    return FinakuApp(store: store);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +35,7 @@ class FinakuApp extends StatelessWidget {
       title: 'Finaku',
       debugShowCheckedModeBanner: false,
       theme: buildFinakuTheme(),
-      home: const AppShell(),
+      home: AppShell(store: store),
     );
   }
 }

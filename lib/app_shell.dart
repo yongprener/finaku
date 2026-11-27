@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 
+import 'data/models.dart';
 import 'screens/add_transaction_screen.dart';
 import 'screens/budget_screen.dart';
 import 'screens/dashboard_screen.dart';
 import 'screens/history_screen.dart';
 import 'screens/report_screen.dart';
+import 'store/finaku_store.dart';
 import 'theme/finaku_theme.dart';
 
 /// Rangka utama aplikasi: isi layar dan bar navigasi pil melayang
@@ -13,7 +15,9 @@ import 'theme/finaku_theme.dart';
 /// Urutan bar: Dasbor, Riwayat, tombol tambah di tengah, Anggaran,
 /// Laporan. Item aktif berwarna limau.
 class AppShell extends StatefulWidget {
-  const AppShell({super.key});
+  const AppShell({super.key, required this.store});
+
+  final FinakuStore store;
 
   @override
   State<AppShell> createState() => _AppShellState();
@@ -22,18 +26,20 @@ class AppShell extends StatefulWidget {
 class _AppShellState extends State<AppShell> {
   int _index = 0;
 
-  static const _screens = [
-    DashboardScreen(),
-    HistoryScreen(),
-    BudgetScreen(),
-    ReportScreen(),
+  List<Widget> get _screens => [
+    DashboardScreen(store: widget.store),
+    HistoryScreen(store: widget.store),
+    BudgetScreen(store: widget.store),
+    ReportScreen(store: widget.store),
   ];
 
   void _openAdd() {
     Navigator.of(context).push(
       MaterialPageRoute<void>(
-        builder: (_) =>
-            const AddTransactionScreen(initialKind: TransactionKind.expense),
+        builder: (_) => AddTransactionScreen(
+          store: widget.store,
+          initialKind: TransactionKind.expense,
+        ),
       ),
     );
   }
