@@ -25,6 +25,14 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
+        <!-- Mesin gambar Impeller dimatikan: di sebagian ponsel kelas
+             bawah (termasuk Samsung A04s, GPU Mali) Impeller membuat
+             aplikasi tertutup seketika saat dibuka. Jalur gambar lama
+             (Skia) stabil di semua perangkat dan tampilannya sama
+             untuk aplikasi ini. -->
+        <meta-data
+            android:name="io.flutter.embedding.android.EnableImpeller"
+            android:value="false" />
         <!-- Don't delete the meta-data below.
              This is used by the Flutter tool to generate GeneratedPluginRegistrant.java -->
         <meta-data
