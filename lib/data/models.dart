@@ -93,3 +93,18 @@ class Transaction {
   final String note;
   final DateTime date;
 }
+
+/// Anggaran bulanan untuk satu kategori pengeluaran.
+class Budget {
+  const Budget({
+    required this.id,
+    required this.categoryId,
+    required this.monthlyLimit,
+  });
+
+  final int id;
+  final int categoryId;
+
+  /// Batas bulanan, bilangan bulat rupiah, selalu lebih dari 0.
+  final int monthlyLimit;
+}

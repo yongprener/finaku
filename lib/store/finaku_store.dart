@@ -3,6 +3,7 @@ import 'package:flutter/foundation.dart' hide Category;
 import '../data/models.dart';
 import '../data/repository.dart';
 import '../domain/balance.dart' as calc;
+import '../domain/budget.dart' as budget_calc;
 
 /// Keadaan aplikasi Finaku yang dibaca layar.
 ///
@@ -15,6 +16,7 @@ class FinakuStore extends ChangeNotifier {
 
   final FinakuRepository _repo;
 
+  List<Budget> budgets = [];
   List<Wallet> wallets = [];
   List<Category> categories = [];
   List<Transaction> transactions = [];
@@ -27,6 +29,7 @@ class FinakuStore extends ChangeNotifier {
     notifyListeners();
     try {
       await _repo.seedIfEmpty();
+      budgets = await _repo.budgets();
       wallets = await _repo.wallets();
       categories = await _repo.categories();
       transactions = await _repo.transactions();
@@ -90,6 +93,22 @@ class FinakuStore extends ChangeNotifier {
       note: note,
       date: date,
     );
+    await load();
+  }
+
+  int spentFor(int categoryId, DateTime month) =>
+      budget_calc.spentInCategory(transactions, categoryId, month);
+
+  Future<void> setBudget({
+    required int categoryId,
+    required int monthlyLimit,
+  }) async {
+    await _repo.setBudget(categoryId: categoryId, monthlyLimit: monthlyLimit);
+    await load();
+  }
+
+  Future<void> deleteBudget(int id) async {
+    await _repo.deleteBudget(id);
     await load();
   }
 

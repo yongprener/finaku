@@ -4,6 +4,7 @@ import 'repository.dart';
 /// Penerapan repositori di memori, untuk pengujian dan pratinjau.
 /// Data hilang saat aplikasi ditutup; ini bukan penyimpanan utama.
 class MemoryRepository implements FinakuRepository {
+  final List<Budget> _budgets = [];
   final List<Wallet> _wallets = [];
   final List<Category> _categories = [];
   final List<Transaction> _transactions = [];
@@ -102,5 +103,36 @@ class MemoryRepository implements FinakuRepository {
   @override
   Future<void> deleteTransaction(int id) async {
     _transactions.removeWhere((t) => t.id == id);
+  }
+
+  @override
+  Future<List<Budget>> budgets() async => List.of(_budgets);
+
+  @override
+  Future<void> setBudget({
+    required int categoryId,
+    required int monthlyLimit,
+  }) async {
+    final i = _budgets.indexWhere((b) => b.categoryId == categoryId);
+    if (i >= 0) {
+      _budgets[i] = Budget(
+        id: _budgets[i].id,
+        categoryId: categoryId,
+        monthlyLimit: monthlyLimit,
+      );
+    } else {
+      _budgets.add(
+        Budget(
+          id: _nextId++,
+          categoryId: categoryId,
+          monthlyLimit: monthlyLimit,
+        ),
+      );
+    }
+  }
+
+  @override
+  Future<void> deleteBudget(int id) async {
+    _budgets.removeWhere((b) => b.id == id);
   }
 }

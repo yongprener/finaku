@@ -162,4 +162,46 @@ class DriftRepository implements FinakuRepository {
   Future<void> deleteTransaction(int id) async {
     await (_db.delete(_db.transactions)..where((t) => t.id.equals(id))).go();
   }
+
+  @override
+  Future<List<m.Budget>> budgets() async {
+    final rows = await _db.select(_db.budgets).get();
+    return rows
+        .map(
+          (r) => m.Budget(
+            id: r.id,
+            categoryId: r.categoryId,
+            monthlyLimit: r.monthlyLimit,
+          ),
+        )
+        .toList();
+  }
+
+  @override
+  Future<void> setBudget({
+    required int categoryId,
+    required int monthlyLimit,
+  }) async {
+    final existing = await (_db.select(
+      _db.budgets,
+    )..where((t) => t.categoryId.equals(categoryId))).getSingleOrNull();
+    if (existing != null) {
+      await (_db.update(_db.budgets)..where((t) => t.id.equals(existing.id)))
+          .write(BudgetsCompanion(monthlyLimit: Value(monthlyLimit)));
+    } else {
+      await _db
+          .into(_db.budgets)
+          .insert(
+            BudgetsCompanion.insert(
+              categoryId: categoryId,
+              monthlyLimit: monthlyLimit,
+            ),
+          );
+    }
+  }
+
+  @override
+  Future<void> deleteBudget(int id) async {
+    await (_db.delete(_db.budgets)..where((t) => t.id.equals(id))).go();
+  }
 }

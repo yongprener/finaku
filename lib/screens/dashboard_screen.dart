@@ -4,6 +4,7 @@ import '../data/models.dart';
 import '../domain/format.dart';
 import '../store/finaku_store.dart';
 import '../theme/finaku_theme.dart';
+import '../widgets/budget_progress.dart';
 import '../widgets/transaction_row.dart';
 import 'add_transaction_screen.dart';
 import 'wallets_screen.dart';
@@ -217,6 +218,27 @@ class DashboardScreen extends StatelessWidget {
                             ),
                           ),
                       const SizedBox(height: 18),
+                      Text('Anggaran bulan ini', style: textTheme.titleSmall),
+                      const SizedBox(height: 6),
+                      if (store.budgets.isEmpty)
+                        const Text(
+                          'Belum ada anggaran. Buat dari tab Anggaran.',
+                          style: TextStyle(
+                            fontSize: 12,
+                            color: FinakuColors.inkMuted,
+                          ),
+                        )
+                      else
+                        for (final b in store.budgets.take(3))
+                          Padding(
+                            padding: const EdgeInsets.only(bottom: 12),
+                            child: BudgetProgress(
+                              store: store,
+                              budget: b,
+                              month: now,
+                            ),
+                          ),
+                      const SizedBox(height: 10),
                       Text('Transaksi terakhir', style: textTheme.titleSmall),
                       const SizedBox(height: 6),
                       if (recent.isEmpty)

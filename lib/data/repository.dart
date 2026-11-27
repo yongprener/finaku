@@ -34,6 +34,14 @@ abstract interface class FinakuRepository {
   });
 
   Future<void> deleteTransaction(int id);
+
+  Future<List<Budget>> budgets();
+
+  /// Menyimpan anggaran satu kategori. Satu kategori hanya punya satu
+  /// anggaran: bila sudah ada, batasnya diperbarui.
+  Future<void> setBudget({required int categoryId, required int monthlyLimit});
+
+  Future<void> deleteBudget(int id);
 }
 
 /// Kategori bawaan dari docs/konsep.md.

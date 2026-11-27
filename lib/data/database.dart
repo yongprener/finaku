@@ -35,8 +35,15 @@ class Transactions extends Table {
   DateTimeColumn get date => dateTime()();
 }
 
+/// Tabel anggaran bulanan per kategori pengeluaran.
+class Budgets extends Table {
+  IntColumn get id => integer().autoIncrement()();
+  IntColumn get categoryId => integer()();
+  IntColumn get monthlyLimit => integer()();
+}
+
 /// Basis data lokal Finaku (SQLite lewat Drift).
-@DriftDatabase(tables: [Wallets, Categories, Transactions])
+@DriftDatabase(tables: [Wallets, Categories, Transactions, Budgets])
 class AppDatabase extends _$AppDatabase {
   AppDatabase() : super(connection.openConnection());
 
@@ -44,5 +51,14 @@ class AppDatabase extends _$AppDatabase {
   AppDatabase.forTesting(super.executor);
 
   @override
-  int get schemaVersion => 1;
+  int get schemaVersion => 2;
+
+  @override
+  MigrationStrategy get migration => MigrationStrategy(
+    onUpgrade: (m, from, to) async {
+      if (from < 2) {
+        await m.createTable(budgets);
+      }
+    },
+  );
 }
