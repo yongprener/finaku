@@ -100,7 +100,7 @@ Tidak ada keputusan besar yang terbuka. Semua keputusan fondasi sudah terkunci:
 
 - Ruang lingkup: pemakaian pribadi, lihat bagian 1
 - Platform: Flutter, lihat bagian 7
-- Arah desain: Pinus dan Kertas, lihat `DESIGN.md` di akar repo
+- Arah desain: Hijau Tua dan Limau, lihat `DESIGN.md` di akar repo
 - Nama paket: `id.finaku.app`
 
 ## 9. Langkah berikutnya

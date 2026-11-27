@@ -1,6 +1,6 @@
 # Referensi UI dan UX untuk Finaku
 
-Hasil riset 27 November 2026 dari Dribbble dan Behance. Semua contoh ditemukan lewat pencarian dan halamannya dibuka. Referensi ini bahan inspirasi pola, bukan untuk ditiru persis, dan tidak mengubah arah desain yang sudah terkunci di `DESIGN.md` (Pinus dan Kertas).
+Hasil riset 27 November 2026 dari Dribbble dan Behance. Semua contoh ditemukan lewat pencarian dan halamannya dibuka. Referensi ini bahan inspirasi pola, bukan untuk ditiru persis, dan tidak mengubah arah desain yang sudah terkunci di `DESIGN.md` (Hijau Tua dan Limau, menggantikan Pinus dan Kertas).
 
 ## Contoh yang dinilai paling cocok
 
