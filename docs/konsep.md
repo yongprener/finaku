@@ -96,16 +96,14 @@ Konsekuensi yang harus dijaga:
 
 ## 8. Keputusan terbuka
 
-1. Arah desain: menunggu persetujuan pemilik, usulan disiapkan terpisah
-2. Nama paket aplikasi: usulan `id.finaku.app`, belum dikunci
+1. Nama paket aplikasi: usulan `id.finaku.app`, belum dikunci
 
-Ruang lingkup sudah terkunci: pemakaian pribadi, lihat bagian 1. Platform sudah terkunci: Flutter, lihat bagian 7.
+Ruang lingkup sudah terkunci: pemakaian pribadi, lihat bagian 1. Platform sudah terkunci: Flutter, lihat bagian 7. Arah desain sudah terkunci: Pinus dan Kertas, lihat `DESIGN.md` di akar repo.
 
 ## 9. Langkah berikutnya
 
-1. Kunci arah desain (identitas, warna, huruf) sebelum antar muka dibangun
-2. Susun kerangka proyek Flutter di repo ini
-3. Bangun MVP sesuai urutan: dompet dan kategori, transaksi, dasbor, anggaran, laporan dan ekspor
+1. Susun kerangka proyek Flutter di repo ini
+2. Bangun MVP sesuai urutan: dompet dan kategori, transaksi, dasbor, anggaran, laporan dan ekspor
 
 ## 10. Saringan kualitas
 

@@ -6,7 +6,7 @@ Finaku dibangun dengan Flutter, satu basis kode untuk aplikasi mobile dan web, d
 
 ## Status
 
-Tahap konsep awal. Dokumen konsep ada di `docs/konsep.md`. Platform sudah dikunci: Flutter. Arah desain belum dikunci dan harus disetujui sebelum antar muka dibangun.
+Tahap konsep awal. Dokumen konsep ada di `docs/konsep.md`. Platform sudah dikunci: Flutter. Arah desain sudah dikunci: Pinus dan Kertas, tertulis di `DESIGN.md`.
 
 Ruang lingkup terkunci: aplikasi ini untuk pemakaian pribadi pemiliknya. Bukan produk publik, tidak ada akun dan tidak ada multi-pengguna. Standarnya tetap setara aplikasi produksi: data benar, bisa dipakai luring, ada cadangan dan pemulihan, dan tidak ada fitur setengah jadi. Rincian standar ini ada di bagian 11 dokumen konsep.
 
@@ -30,8 +30,7 @@ Ruang lingkup terkunci: aplikasi ini untuk pemakaian pribadi pemiliknya. Bukan p
 
 ## Keputusan yang masih terbuka
 
-1. Arah desain: identitas, warna, dan huruf, menunggu persetujuan pemilik
-2. Nama paket aplikasi: usulan `id.finaku.app`, belum dikunci
+1. Nama paket aplikasi: usulan `id.finaku.app`, belum dikunci
 
 Sinkronisasi antarperangkat tidak masuk versi pertama. Pemindahan data antarperangkat dilakukan lewat ekspor dan impor cadangan.
 
