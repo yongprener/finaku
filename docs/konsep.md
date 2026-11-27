@@ -92,13 +92,16 @@ Konsekuensi yang harus dijaga:
 - Prioritas pembangunan dan pengujian adalah Android. Versi web dibangun dari kode yang sama dan diperiksa sesudah Android beres, bukan sebaliknya
 - Penyimpanan lokal memakai basis data lokal di perangkat (SQLite lewat Drift), bukan penyimpanan sementara, supaya data transaksi aman dan bisa ditanya ulang untuk laporan
 - Ukuran dan kecepatan aplikasi dijaga: tidak ada paket tambahan tanpa kebutuhan nyata
-- Nama paket usulan: `id.finaku.app`. Belum dikunci, menunggu pembangunan kerangka dimulai
+- Nama paket terkunci pada 27 November 2026: `id.finaku.app`
 
 ## 8. Keputusan terbuka
 
-1. Nama paket aplikasi: usulan `id.finaku.app`, belum dikunci
+Tidak ada keputusan besar yang terbuka. Semua keputusan fondasi sudah terkunci:
 
-Ruang lingkup sudah terkunci: pemakaian pribadi, lihat bagian 1. Platform sudah terkunci: Flutter, lihat bagian 7. Arah desain sudah terkunci: Pinus dan Kertas, lihat `DESIGN.md` di akar repo.
+- Ruang lingkup: pemakaian pribadi, lihat bagian 1
+- Platform: Flutter, lihat bagian 7
+- Arah desain: Pinus dan Kertas, lihat `DESIGN.md` di akar repo
+- Nama paket: `id.finaku.app`
 
 ## 9. Langkah berikutnya
 

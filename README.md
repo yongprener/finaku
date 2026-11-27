@@ -28,9 +28,9 @@ Ruang lingkup terkunci: aplikasi ini untuk pemakaian pribadi pemiliknya. Bukan p
 - Pencatatan harus cepat: menambah satu transaksi cukup dalam beberapa ketukan.
 - Tampilan ringkas dan serius, tanpa istilah yang membingungkan.
 
-## Keputusan yang masih terbuka
+## Keputusan fondasi
 
-1. Nama paket aplikasi: usulan `id.finaku.app`, belum dikunci
+Semua sudah terkunci: ruang lingkup pemakaian pribadi, platform Flutter, arah desain Pinus dan Kertas (`DESIGN.md`), dan nama paket `id.finaku.app`.
 
 Sinkronisasi antarperangkat tidak masuk versi pertama. Pemindahan data antarperangkat dilakukan lewat ekspor dan impor cadangan.
 
