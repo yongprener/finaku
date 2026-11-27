@@ -8,6 +8,8 @@ Finaku dirancang untuk berjalan sebagai aplikasi web dan aplikasi mobile dari sa
 
 Tahap konsep awal. Dokumen konsep ada di `docs/konsep.md`. Pilihan platform dan tumpukan teknologi belum dikunci dan akan diputuskan sebelum pembangunan dimulai.
 
+Ruang lingkup terkunci: aplikasi ini untuk pemakaian pribadi pemiliknya. Bukan produk publik, tidak ada akun dan tidak ada multi-pengguna. Standarnya tetap setara aplikasi produksi: data benar, bisa dipakai luring, ada cadangan dan pemulihan, dan tidak ada fitur setengah jadi. Rincian standar ini ada di bagian 11 dokumen konsep.
+
 ## Rencana fitur utama
 
 - Dasbor: saldo total, pemasukan dan pengeluaran bulan berjalan
@@ -29,7 +31,8 @@ Tahap konsep awal. Dokumen konsep ada di `docs/konsep.md`. Pilihan platform dan 
 ## Keputusan yang masih terbuka
 
 1. Platform: aplikasi web progresif (PWA) atau Flutter
-2. Ruang lingkup: alat pakai pribadi atau produk untuk pengguna lain
-3. Sinkronisasi antarperangkat: perlu atau cukup lokal
+2. Nama paket dan identitas aplikasi, setelah platform dipilih
+
+Sinkronisasi antarperangkat tidak masuk versi pertama. Pemindahan data antarperangkat dilakukan lewat ekspor dan impor cadangan.
 
 Keputusan tersebut dicatat dan diperbarui di `docs/konsep.md`.
