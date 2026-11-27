@@ -1,0 +1,22 @@
+# Dependensi
+node_modules/
+
+# Hasil pembangunan
+dist/
+build/
+out/
+
+# Berkas lingkungan dan rahasia
+.env
+.env.*
+!.env.example
+
+# Sistem operasi dan penyunting
+.DS_Store
+.idea/
+.vscode/*
+!.vscode/extensions.json
+
+# Catatan Muse untuk sinkronisasi GitHub
+*.muse-github-snapshot-sync.json
+*.muse-github-snapshot-sync.json.tmp-*
