@@ -83,3 +83,7 @@ Setiap layar yang menampilkan data wajib punya tiga keadaan, sesuai standar di d
 ## Catatan gerbang
 
 Sebelum antar muka diserahkan, gerbang pemeriksaan antislop dijalankan dan dilaporkan dengan bukti: kontras, keadaan layar, kontrol yang berfungsi, dan pemeriksaan klik satu per satu pada hasil pembangunan Flutter.
+
+## Ikon aplikasi
+
+Ikon resmi Finaku dikunci pada 27 November 2026 atas persetujuan pemilik: huruf F berbentuk pita berwarna hijau limau dengan daun kecil kuning hangat, di atas latar hijau tua penuh. Bentuk F berasal dari contoh yang dibuat pemilik, lalu warnanya disesuaikan ke tema ini (contoh awalnya biru dan kuning di atas hitam, ditolak karena tidak satu keluarga dengan isi aplikasi). Berkas induknya tersimpan di assets/icon/finaku-icon-1024.png dan sudah diturunkan ke semua ukuran ikon Android dan web di proyek.
