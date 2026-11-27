@@ -12,7 +12,11 @@ import 'theme/finaku_theme.dart';
 /// Aplikasi memakai basis data lokal SQLite lewat Drift. Store dibuat
 /// sekali di sini dan dibagikan ke semua layar.
 void main() {
-  final store = FinakuStore(DriftRepository(AppDatabase()));
+  // BANGUN UJI SEMENTARA: basis data SQLite dimatikan untuk mengisolasi
+  // penyebab aplikasi tertutup seketika di Samsung A04s. Data memakai
+  // repositori memori dan TIDAK tersimpan antar sesi. Kembalikan ke
+  // DriftRepository(AppDatabase()) setelah penyebabnya ketemu.
+  final store = FinakuStore(MemoryRepository());
   store.load();
   runApp(FinakuApp(store: store));
 }
