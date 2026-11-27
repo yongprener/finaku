@@ -1,0 +1,59 @@
+name: Bangun APK Finaku
+
+# Berjalan setiap ada dorongan ke main, dan bisa dijalankan manual
+# dari tab Actions di GitHub.
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Ambil kode
+        uses: actions/checkout@v4
+
+      - name: Pasang Java 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "17"
+
+      - name: Pasang Flutter 3.50.1
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: "3.50.1"
+          channel: stable
+          cache: true
+
+      # Sebagian berkas biner proyek (ikon, gradle wrapper, huruf)
+      # tidak tersimpan langsung di repo: ikon dan wrapper tersimpan
+      # sebagai teks base64, huruf diunduh dari Google Fonts.
+      # Langkah ini memulihkannya sebelum pembangunan.
+      - name: Pulihkan berkas biner
+        run: |
+          base64 -d assets/icon/finaku-icon-1024.png.b64 > assets/icon/finaku-icon-1024.png
+          base64 -d android/gradle/wrapper/gradle-wrapper.jar.b64 > android/gradle/wrapper/gradle-wrapper.jar
+          cd assets/fonts
+          curl -sSL -o PlusJakartaSans-Regular.ttf "https://fonts.gstatic.com/s/plusjakartasans/v12/LDIbaomQNQcsA88c7O9yZ4KMCoOg4IA6-91aHEjcWuA_qU7NSg.ttf"
+          curl -sSL -o PlusJakartaSans-Medium.ttf "https://fonts.gstatic.com/s/plusjakartasans/v12/LDIbaomQNQcsA88c7O9yZ4KMCoOg4IA6-91aHEjcWuA_m07NSg.ttf"
+          curl -sSL -o PlusJakartaSans-Bold.ttf "https://fonts.gstatic.com/s/plusjakartasans/v12/LDIbaomQNQcsA88c7O9yZ4KMCoOg4IA6-91aHEjcWuA_TknNSg.ttf"
+          curl -sSL -o PlusJakartaSans-ExtraBold.ttf "https://fonts.gstatic.com/s/plusjakartasans/v12/LDIbaomQNQcsA88c7O9yZ4KMCoOg4IA6-91aHEjcWuA_KUnNSg.ttf"
+
+      - name: Ambil dependensi
+        run: flutter pub get
+
+      - name: Buat ikon aplikasi semua ukuran
+        run: dart run flutter_launcher_icons
+
+      - name: Bangun APK rilis
+        run: flutter build apk --release
+
+      - name: Unggah APK sebagai artefak
+        uses: actions/upload-artifact@v4
+        with:
+          name: finaku-apk
+          path: build/app/outputs/flutter-apk/app-release.apk
+          retention-days: 30
+          
