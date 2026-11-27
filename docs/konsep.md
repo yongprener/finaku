@@ -77,34 +77,35 @@ Nominal disimpan sebagai bilangan bulat rupiah untuk menghindari kesalahan pembu
 
 ## 6. Prinsip data dan privasi
 
-- Bawaan: semua data tersimpan lokal di perangkat (penyimpanan lokal peramban atau basis data lokal aplikasi).
+- Bawaan: semua data tersimpan lokal di perangkat, di basis data lokal aplikasi Flutter (SQLite).
 - Tidak ada server dan tidak ada pengiriman data keuangan ke pihak ketiga pada versi pertama.
 - Ekspor CSV adalah jalan pengguna memindahkan dan mencadangkan datanya sendiri.
 
-## 7. Pilihan platform
+## 7. Platform terkunci: Flutter
 
-Satu basis kode untuk web dan mobile adalah syarat. Dua calon:
+Dikunci pada 27 November 2026 atas keputusan pemilik: platformnya adalah Flutter.
 
-| Calon | Kelebihan | Kekurangan |
-| --- | --- | --- |
-| Aplikasi web progresif (PWA), React dan TypeScript | Paling cepat jadi, jalan di peramban dan dapat dipasang di layar utama ponsel seperti aplikasi, tanpa toko aplikasi | Kemampuan perangkat terbatas dibanding aplikasi asli |
-| Flutter | Satu kode untuk Android, iOS, dan web, tampilan terasa seperti aplikasi asli | Waktu pembangunan dan ukuran berkas lebih besar, versi web tidak seringan PWA |
+Alasan keputusan ini diterima dan dicatat apa adanya: satu basis kode Dart untuk Android, iOS, dan web, dengan tampilan dan perilaku yang terasa seperti aplikasi asli di ponsel, yang memang menjadi perangkat utama pemakaian harian.
 
-Rekomendasi awal: PWA, karena tujuan versi pertama adalah alat yang cepat dipakai harian. Keputusan akhir belum dikunci.
+Konsekuensi yang harus dijaga:
+
+- Prioritas pembangunan dan pengujian adalah Android. Versi web dibangun dari kode yang sama dan diperiksa sesudah Android beres, bukan sebaliknya
+- Penyimpanan lokal memakai basis data lokal di perangkat (SQLite lewat Drift), bukan penyimpanan sementara, supaya data transaksi aman dan bisa ditanya ulang untuk laporan
+- Ukuran dan kecepatan aplikasi dijaga: tidak ada paket tambahan tanpa kebutuhan nyata
+- Nama paket usulan: `id.finaku.app`. Belum dikunci, menunggu pembangunan kerangka dimulai
 
 ## 8. Keputusan terbuka
 
-1. Platform: PWA atau Flutter
-2. Nama paket dan identitas aplikasi, setelah platform dipilih
+1. Arah desain: menunggu persetujuan pemilik, usulan disiapkan terpisah
+2. Nama paket aplikasi: usulan `id.finaku.app`, belum dikunci
 
-Ruang lingkup sudah terkunci: pemakaian pribadi, lihat bagian 1.
+Ruang lingkup sudah terkunci: pemakaian pribadi, lihat bagian 1. Platform sudah terkunci: Flutter, lihat bagian 7.
 
 ## 9. Langkah berikutnya
 
-1. Kunci keputusan platform
-2. Kunci arah desain (identitas, warna, huruf) sebelum antar muka dibangun
-3. Susun kerangka proyek sesuai platform terpilih di repo ini
-4. Bangun MVP sesuai urutan: dompet dan kategori, transaksi, dasbor, anggaran, laporan dan ekspor
+1. Kunci arah desain (identitas, warna, huruf) sebelum antar muka dibangun
+2. Susun kerangka proyek Flutter di repo ini
+3. Bangun MVP sesuai urutan: dompet dan kategori, transaksi, dasbor, anggaran, laporan dan ekspor
 
 ## 10. Saringan kualitas
 
